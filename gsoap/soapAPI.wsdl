@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="soapAPI"
+  targetNamespace="http://tempuri.org/ns.xsd/soapAPI.wsdl"
+  xmlns:tns="http://tempuri.org/ns.xsd/soapAPI.wsdl"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:ns="http://tempuri.org/ns.xsd"
+  xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+  xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
+  xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+  xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+  xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+  xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+  <schema targetNamespace="http://tempuri.org/ns.xsd"
+    xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+    xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:ns="http://tempuri.org/ns.xsd"
+    xmlns="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="unqualified"
+    attributeFormDefault="unqualified">
+    <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+  </schema>
+
+</types>
+
+<message name="addRequest">
+  <part name="num1" type="xsd:int"/><!-- ns__add::num1 -->
+  <part name="num2" type="xsd:int"/><!-- ns__add::num2 -->
+</message>
+
+<message name="addResponse">
+  <part name="result" element="ns:result"/><!-- ns__add::result -->
+</message>
+
+<message name="subRequest">
+  <part name="num1" type="xsd:int"/><!-- ns__sub::num1 -->
+  <part name="num2" type="xsd:int"/><!-- ns__sub::num2 -->
+</message>
+
+<message name="subResponse">
+  <part name="result" element="ns:result"/><!-- ns__sub::result -->
+</message>
+
+<message name="multRequest">
+  <part name="num1" type="xsd:int"/><!-- ns__mult::num1 -->
+  <part name="num2" type="xsd:int"/><!-- ns__mult::num2 -->
+</message>
+
+<message name="multResponse">
+  <part name="result" element="ns:result"/><!-- ns__mult::result -->
+</message>
+
+<message name="dividRequest">
+  <part name="num1" type="xsd:int"/><!-- ns__divid::num1 -->
+  <part name="num2" type="xsd:int"/><!-- ns__divid::num2 -->
+</message>
+
+<message name="dividResponse">
+  <part name="result" element="ns:result"/><!-- ns__divid::result -->
+</message>
+
+<message name="UpdateNoticeRequest">
+</message>
+
+<message name="UpdateNoticeResponse">
+  <part name="result" element="ns:result"/><!-- ns__UpdateNotice::result -->
+</message>
+
+<message name="PublishNoticeRequest">
+  <part name="str" type="xsd:string"/><!-- ns__PublishNotice::str -->
+</message>
+
+<message name="PublishNoticeResponse">
+  <part name="result" element="ns:result"/><!-- ns__PublishNotice::result -->
+</message>
+
+<portType name="soapAPIPortType">
+  <operation name="add">
+    <documentation>Service definition of function ns__add</documentation>
+    <input message="tns:addRequest"/>
+    <output message="tns:addResponse"/>
+  </operation>
+  <operation name="sub">
+    <documentation>Service definition of function ns__sub</documentation>
+    <input message="tns:subRequest"/>
+    <output message="tns:subResponse"/>
+  </operation>
+  <operation name="mult">
+    <documentation>Service definition of function ns__mult</documentation>
+    <input message="tns:multRequest"/>
+    <output message="tns:multResponse"/>
+  </operation>
+  <operation name="divid">
+    <documentation>Service definition of function ns__divid</documentation>
+    <input message="tns:dividRequest"/>
+    <output message="tns:dividResponse"/>
+  </operation>
+  <operation name="UpdateNotice">
+    <documentation>Service definition of function ns__UpdateNotice</documentation>
+    <input message="tns:UpdateNoticeRequest"/>
+    <output message="tns:UpdateNoticeResponse"/>
+  </operation>
+  <operation name="PublishNotice">
+    <documentation>Service definition of function ns__PublishNotice</documentation>
+    <input message="tns:PublishNoticeRequest"/>
+    <output message="tns:PublishNoticeResponse"/>
+  </operation>
+</portType>
+
+<binding name="soapAPI" type="tns:soapAPIPortType">
+  <SOAP:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="add">
+    <SOAP:operation style="rpc" soapAction=""/>
+    <input>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </input>
+    <output>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </output>
+  </operation>
+  <operation name="sub">
+    <SOAP:operation style="rpc" soapAction=""/>
+    <input>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </input>
+    <output>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </output>
+  </operation>
+  <operation name="mult">
+    <SOAP:operation style="rpc" soapAction=""/>
+    <input>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </input>
+    <output>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </output>
+  </operation>
+  <operation name="divid">
+    <SOAP:operation style="rpc" soapAction=""/>
+    <input>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </input>
+    <output>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </output>
+  </operation>
+  <operation name="UpdateNotice">
+    <SOAP:operation style="rpc" soapAction=""/>
+    <input>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </input>
+    <output>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </output>
+  </operation>
+  <operation name="PublishNotice">
+    <SOAP:operation style="rpc" soapAction=""/>
+    <input>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </input>
+    <output>
+          <SOAP:body use="literal" parts="Body" namespace="http://tempuri.org/ns.xsd"/>
+    </output>
+  </operation>
+</binding>
+
+<service name="soapAPI">
+  <documentation>gSOAP 2.8.79 generated service definition</documentation>
+  <port name="soapAPI" binding="tns:soapAPI">
+    <SOAP:address location="http://localhost:80"/>
+  </port>
+</service>
+
+</definitions>
