@@ -1,0 +1,45 @@
+﻿<html>
+  <head>
+    <title></title>
+    <style>
+    
+    html {
+      background: radial-gradient(75% 75%, circle farthest-side, white, orange, rgb(204,0,0));
+      color:#fff;
+    }
+    
+    html:rtl {
+      mapping: left-to-right(background);
+    }
+    
+    
+    body { 
+      size:*;
+      overflow:auto; 
+    }
+    
+    </style>
+    <script type="text/tiscript">
+     
+      self.select("button#open").on("click", function(){
+      
+       view.GetKeyStates();
+     
+      });
+      self.select("button#test").on("click", function(){
+      
+        view.UpdateNotice();
+      
+       });
+    </script>
+  </head>
+<body>
+
+  <h1>Minimal Sciter MFC Application</h1>
+
+  <button id="open">gsoap接口测试</button> 
+  <button id="test">测试数据库接口</button> 
+  Animated image <img src="sciter:busy.png">
+
+</body>
+</html>
