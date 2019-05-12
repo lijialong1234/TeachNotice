@@ -48,6 +48,9 @@
     <ClInclude Include="..\gsoap\stdsoap2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SoapSingLeton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NoticeClient.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\gsoap\stdsoap2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SoapSingLeton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

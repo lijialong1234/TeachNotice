@@ -98,7 +98,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>..\Jason;sciter\lib\32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sciter.lib;lib_json.lib</AdditionalDependencies>
+      <AdditionalDependencies>lib_json.lib;windowscodecs.lib</AdditionalDependencies>
     </Link>
     <Midl>
       <MkTypLibCompatible>false</MkTypLibCompatible>
@@ -197,6 +197,7 @@
     <ClInclude Include="NoticeClient.h" />
     <ClInclude Include="NoticeClientDlg.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SoapSingLeton.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -208,6 +209,7 @@
     <ClCompile Include="LoginDlg.cpp" />
     <ClCompile Include="NoticeClient.cpp" />
     <ClCompile Include="NoticeClientDlg.cpp" />
+    <ClCompile Include="SoapSingLeton.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

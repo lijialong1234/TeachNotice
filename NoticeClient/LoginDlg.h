@@ -44,4 +44,5 @@ public:
 	END_FUNCTION_MAP
 	json::value GetKeyStates();
 	json::value UpdateNotice();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

@@ -6,11 +6,10 @@
 #include "LoginDlg.h"
 #include "afxdialogex.h"
 #include"GlobalFunctions.h"
-#include "soapAPI.nsmap"
-#include "soapH.h" 
+#include "SoapSingLeton.h"
 extern TCHAR g_ExePath[MAX_PATH];
 // LoginDlg dialog
-
+extern volatile HWND g_hCurrentDlg;
 IMPLEMENT_DYNAMIC(LoginDlg, CDialogEx)
 
 LoginDlg::LoginDlg(CWnd* pParent /*=NULL*/)
@@ -119,6 +118,11 @@ bool LoginDlg::handle_event(HELEMENT he, BEHAVIOR_EVENT_PARAMS & params)
 			//
 			OnCancel();
 		}
+		else if (wcsncmp(Id.c_str(), L"test", strlen("test")) == 0)
+		{
+			//
+			OnOK();
+		}
 		else if (wcsncmp(Id.c_str(), L"Cmd_Btn_Min", strlen("Cmd_Btn_Min")) == 0)
 		{
 			ShowWindow(SW_MINIMIZE);
@@ -163,7 +167,7 @@ int LoginDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (__super::OnCreate(lpCreateStruct) == -1)
 		return -1;
-	SetWindowLong(m_hWnd,GWL_EXSTYLE,GetWindowLong(m_hWnd,GWL_EXSTYLE)|WS_EX_APPWINDOW|WS_CHILD);
+	//SetWindowLong(m_hWnd,GWL_EXSTYLE,GetWindowLong(m_hWnd,GWL_EXSTYLE)|WS_EX_APPWINDOW|WS_CHILD);
 	this->setup_callback(); // attach sciter::host callbacks
 	sciter::attach_dom_event_handler(this->get_hwnd(), this); // attach this as a DOM events 
 	return 0;
@@ -174,6 +178,7 @@ BOOL LoginDlg::OnInitDialog()
 {
 	__super::OnInitDialog();
 	ShowWindow(SW_NORMAL);
+	g_hCurrentDlg = this->GetSafeHwnd();
 	TCHAR loginpage[MAX_PATH] = { 0 };
 	wsprintf(loginpage, _T("%sLayout\\login.htm"), g_ExePath);
 	TCHAR szURL[MAX_PATH] = { 0 };
@@ -250,72 +255,39 @@ void LoginDlg::UpdateWindowSize()
 
 json::value LoginDlg::GetKeyStates()
 {
-	int num1 = 110;
-	int num2 = 11;
-	int result = 0;
-
-	struct soap *CalculateSoap = soap_new();
-	soap_init(CalculateSoap);
-	char * server_addr = "http://localhost:8080";
-
-
-	int iRet = soap_call_ns__add(CalculateSoap, server_addr, "", num1, num2, &result);
-	if (iRet != SOAP_OK)
-	{
-		MessageBox(L"调用远程方法失败\n");
-	}
-	else
-	{
-		MessageBox(L"gsoap客户端调试成功\n");
-		printf("%d + %d = %d\n", num1, num2, result);
-	}
-	soap_end(CalculateSoap);
-	soap_done(CalculateSoap);
-	free(CalculateSoap);
 	return json::value();
 }
 
 json::value LoginDlg::UpdateNotice()
 {
-	struct soap *CalculateSoap = soap_new();
-	soap_init(CalculateSoap);
-	char * server_addr = "http://localhost:8080";
+	CSoapSingLeton::GetInstance()->GlobalUpdateNotice();
+	CSoapSingLeton::DestreyInstance();
+	return json::value();
+}
 
-	std::string result;
 
-	int iRet = soap_call_ns__UpdateNotice(CalculateSoap, server_addr, "", result);
-	if (iRet != SOAP_OK)
+BOOL LoginDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: Add your specialized code here and/or call the base class
+	// TODO: 在此添加专用代码和/或调用基类
+	LRESULT lResult;
+	BOOL    bHandled;
+
+	if (pMsg->message == WM_CHAR) {
+		lResult = SciterProcND(this->GetSafeHwnd(), pMsg->message, pMsg->wParam, pMsg->lParam, &bHandled);
+		//if (bHandled)      // if it was handled by the Sciter
+		//return lResult; // then no further processing is required.
+	}
+	if (pMsg->wParam == VK_BACK || pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE || pMsg->wParam == VK_SPACE)
 	{
-		MessageBox(L"调用远程方法失败\n");
+		lResult = SciterProcND(this->GetSafeHwnd(), pMsg->message, pMsg->wParam, pMsg->lParam, &bHandled);
+		if (bHandled)      // if it was handled by the Sciter
+			return true; // then no further processing is required.
+						 //pMsg->wParam = 0 ;
+		return true;
 	}
 	else
 	{
-		Json::Reader reader;
-		Json::Value root;
-		Json::Value jret;
-		std::string sRet;
-		// reader将Json字符串解析到root，root将包含Json里所有子元素  
-		if (reader.parse(result.c_str(),root))
-		{
-			size_t length = root.size();
-			for (size_t i = 0; i < length; i++)
-			{
-				Json::Value jv = root[i];
-				std::string str;
-				UTF82C(jv["type"].asString().c_str(), str);
-				jv["type"] = str;
-				UTF82C(jv["info"].asString().c_str(), str);
-				jv["info"] = str;
-				UTF82C(jv["times"].asString().c_str(), str);
-				jv["times"] = str;
-				jret.append(jv);
-			}
-			sRet = jret.toStyledString();
-		}
-		MessageBox(L"连接服务成功\n");
+		return __super::PreTranslateMessage(pMsg);
 	}
-	soap_end(CalculateSoap);
-	soap_done(CalculateSoap);
-	free(CalculateSoap);
-	return json::value();
 }
